@@ -1,0 +1,375 @@
+{
+  "provenance": {
+    "git_head": "bc4b0579a6ebb680acbaedaac276d9351d53bedd",
+    "python": "3.11.2",
+    "platform": "Linux-7.0.14-linuxkit-aarch64-with-glibc2.36",
+    "numpy": "2.4.6",
+    "started_unix": 1795752815.0474608,
+    "finished_unix": 1795752846.0295103
+  },
+  "kernel_speed": {
+    "dynamic_pilot": {
+      "baseline_us_per_block": 18.115743005182594,
+      "optimized_us_per_block": 17.668819501219936,
+      "speedup_x": 1.0252944744798484,
+      "paired_round_speedups": [
+        0.7190582206804842,
+        0.7448718915600786,
+        1.0302344021235024,
+        0.995804547406109,
+        1.0408666003707037,
+        0.971036464727685,
+        0.9949148244191599,
+        1.0452709144967685,
+        1.0641628250170136,
+        1.0315495156435082,
+        1.0248912214075994
+      ],
+      "paired_speedup_median_x": 1.0248912214075994,
+      "timing": "interleaved_paired_median",
+      "output_bitexact_vs_baseline": true,
+      "gain_bitexact_vs_baseline": true,
+      "coeff_cache": {
+        "hits": 8999,
+        "misses": 3001,
+        "lookups": 12000,
+        "hit_rate": 0.7499166666666667,
+        "kind_hits": {
+          "bandpass": 5999,
+          "peaking": 3000
+        },
+        "kind_misses": {
+          "bandpass": 1,
+          "peaking": 3000
+        },
+        "slots": 2
+      }
+    },
+    "tracker_glide": {
+      "baseline_us_per_block": 118.6352361110039,
+      "optimized_us_per_block": 112.3160463369762,
+      "speedup_x": 1.0562625731595694,
+      "paired_round_speedups": [
+        1.0676854131279805,
+        1.0367233716238693,
+        0.9815759494283787,
+        1.1167691239156214,
+        1.0648830764608361,
+        1.0522415829605012,
+        1.0879965178728452,
+        1.0264011052058435,
+        1.0450564531525877,
+        1.0362212246951772,
+        1.0590142575119437
+      ],
+      "paired_speedup_median_x": 1.0522415829605012,
+      "timing": "interleaved_paired_median",
+      "output_bitexact_vs_baseline": true,
+      "gain_bitexact_vs_baseline": true,
+      "coeff_cache": {
+        "hits": 6761,
+        "misses": 11239,
+        "lookups": 18000,
+        "hit_rate": 0.3756111111111111,
+        "kind_hits": {
+          "bandpass": 6759,
+          "peaking": 2
+        },
+        "kind_misses": {
+          "bandpass": 2241,
+          "peaking": 8998
+        },
+        "slots": 2
+      }
+    },
+    "continuous_param_sweep": {
+      "baseline_us_per_block": 18.33213900681585,
+      "optimized_us_per_block": 18.739819332646828,
+      "speedup_x": 0.9782452371287939,
+      "paired_round_speedups": [
+        0.979996730359186,
+        0.9676903842504688,
+        0.9769796854947854,
+        0.7340275423182172,
+        0.9812178864082345,
+        0.9709554911758744,
+        0.9740011762548293,
+        0.9636350215384121,
+        0.9887516710869264
+      ],
+      "paired_speedup_median_x": 0.9740011762548293,
+      "timing": "interleaved_paired_median",
+      "coeff_cache": {
+        "hits": 110,
+        "misses": 5890,
+        "lookups": 6000,
+        "hit_rate": 0.018333333333333333,
+        "kind_hits": {
+          "bandpass": 74,
+          "peaking": 36
+        },
+        "kind_misses": {
+          "bandpass": 2926,
+          "peaking": 2964
+        },
+        "slots": 2
+      }
+    }
+  },
+  "cost_decomposition_tracker": {
+    "nblocks": 6000,
+    "time_ms_by_category": {
+      "lfilter/scipy": 425.1329580000001,
+      "系数计算": 5.798749000000001,
+      "tracker 判决 Python": 205.337287,
+      "process 包络/增益循环": 131.94608000000002,
+      "其他": 886.4064270000003
+    },
+    "pct_by_category": {
+      "lfilter/scipy": 25.69366817384298,
+      "系数计算": 0.35045773287095705,
+      "tracker 判决 Python": 12.409924981387025,
+      "process 包络/增益循环": 7.974396556569345,
+      "其他": 53.57155255532971
+    },
+    "profiler_total_s": 1.6546215010000003
+  },
+  "sharing_scaling": {
+    "2": {
+      "independent_us_per_block": 4.439236324590942,
+      "shared_us_per_block": 2.5402779962557056,
+      "speedup": 1.7475395728870005
+    },
+    "4": {
+      "independent_us_per_block": 8.524597331415862,
+      "shared_us_per_block": 2.7452639963788292,
+      "speedup": 3.1052013003705023
+    },
+    "8": {
+      "independent_us_per_block": 16.68945833807811,
+      "shared_us_per_block": 3.2119719932476682,
+      "speedup": 5.1960161462065475
+    }
+  },
+  "crossing_probe": {
+    "scenario": {
+      "t_cross": 0.24133333333333334,
+      "cross_sample": 11584,
+      "cross_block": 90,
+      "block": 128,
+      "f_cross": 2200.0,
+      "f0": 900.0,
+      "d_hz": 500.0,
+      "f_at_block_start": [
+        2700.0,
+        1700.0
+      ],
+      "f_at_block_end": [
+        1700.0,
+        2700.0
+      ],
+      "slope_mag_hz_s": 375000.0,
+      "f_sig": 2700.0,
+      "order_before": "A>B",
+      "t_B_ramp_start": 0.23786666666666667,
+      "note": "对称陡交叉：块首 fc±d，块中央相交，块末互换"
+    },
+    "nodes": {
+      "A": {
+        "version_vs_sample_max_err_db": 0.0,
+        "index_vs_version_first_bad_0p5db": {
+          "i0": 12340,
+          "i1": 16579,
+          "t0": 0.25708333333333333,
+          "t1": 0.34539583333333335,
+          "n_samples": 4240,
+          "peak_err_db": 1.534723740986923,
+          "mean_err_db": 1.225845048388993
+        },
+        "index_vs_hold_first_bad_2db": null,
+        "index_vs_version_max_post_cross_err_db": 1.534723740986923,
+        "index_vs_hold_max_post_cross_err_db": 1.306079170647152
+      },
+      "B": {
+        "version_vs_sample_max_err_db": 0.0,
+        "index_vs_version_first_bad_0p5db": {
+          "i0": 11584,
+          "i1": 11606,
+          "t0": 0.24133333333333334,
+          "t1": 0.24179166666666665,
+          "n_samples": 23,
+          "peak_err_db": 1.9967448327968338,
+          "mean_err_db": 1.5613728457717682
+        },
+        "index_vs_hold_first_bad_2db": {
+          "i0": 11604,
+          "i1": 11709,
+          "t0": 0.24175,
+          "t1": 0.2439375,
+          "n_samples": 106,
+          "peak_err_db": 11.694682552685627,
+          "mean_err_db": 7.475583109363856
+        },
+        "index_vs_version_max_post_cross_err_db": 3.3993318819120066,
+        "index_vs_hold_max_post_cross_err_db": 11.694682552685627
+      }
+    },
+    "index_cache": {
+      "requests": 48000,
+      "max_freq_mismatch_hz": 992.1875000000146
+    },
+    "version_bitexact_to_sample": true
+  },
+  "alias_control": {
+    "new_misses_on_rename": 0,
+    "new_hits_on_rename": 19200,
+    "wet_bitexact": true,
+    "wet_max_abs_diff": 0.0
+  },
+  "overlap_sharing": {
+    "bank_stats": {
+      "lfilter_runs": 2850,
+      "block_requests": 3600,
+      "cache_hits": 750,
+      "unique_entries": 2
+    },
+    "max_det_diff": 0.0,
+    "max_gain_diff": 0.0,
+    "wet_bitexact": true,
+    "attenuation_db": {
+      "shared": {
+        "1800Hz_pre": -3.349903173988495,
+        "3000Hz_pre": -28.874830823646764,
+        "1800Hz_post": -14.859587913708122,
+        "3000Hz_post": -15.899899085490235
+      },
+      "independent": {
+        "1800Hz_pre": -3.349903173988495,
+        "3000Hz_pre": -28.874830823646764,
+        "1800Hz_post": -14.859587913708122,
+        "3000Hz_post": -15.899899085490235
+      }
+    }
+  },
+  "short_events": {
+    "n_bursts": 57,
+    "burst_ms": 2.0,
+    "poll1_hits": 57,
+    "poll4_hits": 57,
+    "poll8_hits": 39,
+    "poll16_hits": 20,
+    "kernel_env_hits": 57,
+    "baseline_vs_optimized_output_bitexact": true,
+    "gain_trajectory_max_diff_db": 0.0
+  },
+  "attack_release_stability": {
+    "baseline": {
+      "attack_ms": 58.00000000000027,
+      "release_ms": 421.9999999999997,
+      "pole_r_max": 0.9381295097574883,
+      "pole_clamp_count": 0,
+      "output_finite": true
+    },
+    "optimized": {
+      "attack_ms": 58.00000000000027,
+      "release_ms": 421.9999999999997,
+      "pole_r_max": 0.9381295097574883,
+      "pole_clamp_count": 0,
+      "output_finite": true
+    }
+  },
+  "band_response": {
+    "windows": [
+      {
+        "window": [
+          2.5,
+          3.4
+        ],
+        "gain_db": -14.276362639936455,
+        "f_process": 3000.0,
+        "max_model_err_db": 0.22168745561793912,
+        "meas_db": [
+          -0.01613490700463092,
+          -0.07052954833687487,
+          -0.275227992018007,
+          -0.9255383643270664,
+          -3.5440988684531893,
+          -7.965452351965191,
+          -14.33628638071593,
+          -8.835420982419507,
+          -3.8981383305965593,
+          -0.851467424594339,
+          -0.2515128809972641,
+          -0.10169933229295512
+        ],
+        "model_db": [
+          -0.01645463471488254,
+          -0.0681929514475493,
+          -0.31340949781940275,
+          -0.9200182837072008,
+          -3.5652636136867466,
+          -7.878421624256395,
+          -14.276362639891449,
+          -8.613733526801568,
+          -3.8549578609542117,
+          -0.841462961351316,
+          -0.2485898990288772,
+          -0.1017922541041641
+        ]
+      },
+      {
+        "window": [
+          5.5,
+          6.4
+        ],
+        "gain_db": -10.499933790647756,
+        "f_process": 3000.0,
+        "max_model_err_db": 0.3789830667837677,
+        "meas_db": [
+          -0.009266267571255647,
+          -0.04020722029190349,
+          -0.17607597396421173,
+          -0.5818574124877531,
+          -2.428669594709628,
+          -6.052303083908824,
+          -10.878916857402455,
+          -6.530873354516126,
+          -2.6863555217435806,
+          -0.5434184758186287,
+          -0.15932513041006446,
+          -0.0660723639970147
+        ],
+        "model_db": [
+          -0.010086559176408492,
+          -0.04188739749005673,
+          -0.19436021162155942,
+          -0.5835973463737139,
+          -2.453092997172749,
+          -5.840925477949001,
+          -10.499933790618687,
+          -6.424882965370014,
+          -2.671602347675731,
+          -0.5322505351743858,
+          -0.15377701253448278,
+          -0.06260853602883673
+        ]
+      }
+    ],
+    "per_block_us_this_run": 18.091138830641285,
+    "coeff_cache": {
+      "hits": 14999,
+      "misses": 9001,
+      "lookups": 24000,
+      "hit_rate": 0.6249583333333333,
+      "kind_hits": {
+        "bandpass": 11999,
+        "peaking": 3000
+      },
+      "kind_misses": {
+        "bandpass": 1,
+        "peaking": 9000
+      },
+      "slots": 2
+    }
+  }
+}

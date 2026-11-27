@@ -1,0 +1,298 @@
+{
+  "build_app_ok": true,
+  "fs": 48000,
+  "cases": {
+    "2400_to_3600": {
+      "音源": "导频栅格+触发共振",
+      "说明": "两次均为 dyneq.kernel.DynamicEQ 真实处理；仅 detect_freq 不同，其余公共参数一致。",
+      "common": {
+        "detect_q": 8.0,
+        "threshold_db": -32.0,
+        "ratio": 4.0,
+        "max_cut_db": 15.0,
+        "attack_ms": 5.0,
+        "release_ms": 120.0,
+        "process_q": 3.0,
+        "process_follow": true,
+        "fixed_process_freq_hz": 3000.0
+      },
+      "before": {
+        "applied_detect_freq_hz": 2400.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -11.777405725767931,
+        "gain_mean_db": -3.593801567852002,
+        "samples_cut_gt1db": 174098,
+        "wet_rms": 0.08602936942169555,
+        "wet_peak": 0.7620759012688689,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "after": {
+        "applied_detect_freq_hz": 3600.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -13.411598262924251,
+        "gain_mean_db": -4.278642621649005,
+        "samples_cut_gt1db": 178739,
+        "wet_rms": 0.0737117327338676,
+        "wet_peak": 0.6335382485172434,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "output_difference_after_minus_before": {
+        "max_abs": 0.7552283128429426,
+        "rms": 0.07445382406369488,
+        "bit_exact_equal": false,
+        "audible_change": true
+      }
+    },
+    "2400_to_800": {
+      "音源": "导频栅格+触发共振",
+      "说明": "两次均为 dyneq.kernel.DynamicEQ 真实处理；仅 detect_freq 不同，其余公共参数一致。",
+      "common": {
+        "detect_q": 8.0,
+        "threshold_db": -32.0,
+        "ratio": 4.0,
+        "max_cut_db": 15.0,
+        "attack_ms": 5.0,
+        "release_ms": 120.0,
+        "process_q": 3.0,
+        "process_follow": true,
+        "fixed_process_freq_hz": 3000.0
+      },
+      "before": {
+        "applied_detect_freq_hz": 2400.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -11.777405725767931,
+        "gain_mean_db": -3.593801567852002,
+        "samples_cut_gt1db": 174098,
+        "wet_rms": 0.08602936942169555,
+        "wet_peak": 0.7620759012688689,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "after": {
+        "applied_detect_freq_hz": 800.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": 0.0,
+        "gain_mean_db": 0.0,
+        "samples_cut_gt1db": 0,
+        "wet_rms": 0.12249514391702213,
+        "wet_peak": 1.1091270297243823,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "output_difference_after_minus_before": {
+        "max_abs": 0.6283510793822508,
+        "rms": 0.0633242579134714,
+        "bit_exact_equal": false,
+        "audible_change": true
+      }
+    },
+    "2400_to_2000": {
+      "音源": "导频栅格+触发共振",
+      "说明": "两次均为 dyneq.kernel.DynamicEQ 真实处理；仅 detect_freq 不同，其余公共参数一致。",
+      "common": {
+        "detect_q": 8.0,
+        "threshold_db": -32.0,
+        "ratio": 4.0,
+        "max_cut_db": 15.0,
+        "attack_ms": 5.0,
+        "release_ms": 120.0,
+        "process_q": 3.0,
+        "process_follow": true,
+        "fixed_process_freq_hz": 3000.0
+      },
+      "before": {
+        "applied_detect_freq_hz": 2400.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -11.777405725767931,
+        "gain_mean_db": -3.593801567852002,
+        "samples_cut_gt1db": 174098,
+        "wet_rms": 0.08602936942169555,
+        "wet_peak": 0.7620759012688689,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "after": {
+        "applied_detect_freq_hz": 2000.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -8.095869431287573,
+        "gain_mean_db": -2.013036876023469,
+        "samples_cut_gt1db": 161424,
+        "wet_rms": 0.11070499915733673,
+        "wet_peak": 1.0581043208193808,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "output_difference_after_minus_before": {
+        "max_abs": 0.3644999011737683,
+        "rms": 0.03760453994787641,
+        "bit_exact_equal": false,
+        "audible_change": true
+      }
+    },
+    "2400_to_3000": {
+      "音源": "导频栅格+触发共振",
+      "说明": "两次均为 dyneq.kernel.DynamicEQ 真实处理；仅 detect_freq 不同，其余公共参数一致。",
+      "common": {
+        "detect_q": 8.0,
+        "threshold_db": -32.0,
+        "ratio": 4.0,
+        "max_cut_db": 15.0,
+        "attack_ms": 5.0,
+        "release_ms": 120.0,
+        "process_q": 3.0,
+        "process_follow": true,
+        "fixed_process_freq_hz": 3000.0
+      },
+      "before": {
+        "applied_detect_freq_hz": 2400.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -11.777405725767931,
+        "gain_mean_db": -3.593801567852002,
+        "samples_cut_gt1db": 174098,
+        "wet_rms": 0.08602936942169555,
+        "wet_peak": 0.7620759012688689,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "after": {
+        "applied_detect_freq_hz": 3000.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -14.999999999999787,
+        "gain_mean_db": -5.880818285052211,
+        "samples_cut_gt1db": 186089,
+        "wet_rms": 0.048228642732688266,
+        "wet_peak": 0.6012003607037921,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "output_difference_after_minus_before": {
+        "max_abs": 0.5415373812464694,
+        "rms": 0.057078304387118715,
+        "bit_exact_equal": false,
+        "audible_change": true
+      }
+    },
+    "2400_to_6000": {
+      "音源": "导频栅格+触发共振",
+      "说明": "两次均为 dyneq.kernel.DynamicEQ 真实处理；仅 detect_freq 不同，其余公共参数一致。",
+      "common": {
+        "detect_q": 8.0,
+        "threshold_db": -32.0,
+        "ratio": 4.0,
+        "max_cut_db": 15.0,
+        "attack_ms": 5.0,
+        "release_ms": 120.0,
+        "process_q": 3.0,
+        "process_follow": true,
+        "fixed_process_freq_hz": 3000.0
+      },
+      "before": {
+        "applied_detect_freq_hz": 2400.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -11.777405725767931,
+        "gain_mean_db": -3.593801567852002,
+        "samples_cut_gt1db": 174098,
+        "wet_rms": 0.08602936942169555,
+        "wet_peak": 0.7620759012688689,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "after": {
+        "applied_detect_freq_hz": 6000.0,
+        "applied_detect_q": 8.0,
+        "applied_process_freq_hz": 3000.0,
+        "process_follow": 1,
+        "gain_min_db": -5.047585361840661,
+        "gain_mean_db": -1.1013955997692562,
+        "samples_cut_gt1db": 97393,
+        "wet_rms": 0.11946381204754337,
+        "wet_peak": 1.0715636357871672,
+        "pole_clamp_count": 0,
+        "feedback_non_ok": []
+      },
+      "output_difference_after_minus_before": {
+        "max_abs": 0.7124344869098366,
+        "rms": 0.0683416936202233,
+        "bit_exact_equal": false,
+        "audible_change": true
+      }
+    }
+  },
+  "fixed_process_case": {
+    "音源": "固定音+可变窄带共振",
+    "说明": "两次均为 dyneq.kernel.DynamicEQ 真实处理；仅 detect_freq 不同，其余公共参数一致。",
+    "common": {
+      "detect_q": 10.0,
+      "threshold_db": -30.0,
+      "ratio": 4.0,
+      "max_cut_db": 15.0,
+      "attack_ms": 5.0,
+      "release_ms": 120.0,
+      "process_q": 3.0,
+      "process_follow": false,
+      "fixed_process_freq_hz": 2600.0
+    },
+    "before": {
+      "applied_detect_freq_hz": 1800.0,
+      "applied_detect_q": 8.0,
+      "applied_process_freq_hz": 2600.0,
+      "process_follow": 0,
+      "gain_min_db": -4.998381903783396,
+      "gain_mean_db": -1.1246089895970852,
+      "samples_cut_gt1db": 110340,
+      "wet_rms": 0.200619103101908,
+      "wet_peak": 0.9818035417678381,
+      "pole_clamp_count": 0,
+      "feedback_non_ok": [
+        {
+          "param": "detect_q",
+          "status": "clamped"
+        }
+      ]
+    },
+    "after": {
+      "applied_detect_freq_hz": 3200.0,
+      "applied_detect_q": 8.0,
+      "applied_process_freq_hz": 2600.0,
+      "process_follow": 0,
+      "gain_min_db": -14.99961218141329,
+      "gain_mean_db": -5.46669278204011,
+      "samples_cut_gt1db": 196077,
+      "wet_rms": 0.18505457115188553,
+      "wet_peak": 0.7972515465897237,
+      "pole_clamp_count": 0,
+      "feedback_non_ok": [
+        {
+          "param": "detect_q",
+          "status": "clamped"
+        }
+      ]
+    },
+    "output_difference_after_minus_before": {
+      "max_abs": 0.45115931470649717,
+      "rms": 0.05176629322021814,
+      "bit_exact_equal": false,
+      "audible_change": true
+    }
+  }
+}

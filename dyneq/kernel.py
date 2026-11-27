@@ -71,6 +71,57 @@ def bandpass_coeffs(f_hz, q, fs):
     return b, a
 
 
+class CoeffCache:
+    """按"完整系数签名"取系数的备忘录：参数不变就不重算。
+
+    键必须包含所有进入系数的量（种类、fs、f、Q、增益）。自动化改变频率后
+    签名随之改变 -> 缓存未命中并按实际参数重算；仅更换显示名称等不进入签名
+    的标签 -> 必然命中，正确复用。
+
+    version 可选地带上"轨迹版本"：当同编号频带的自动化曲线被整体替换时，
+    即使频率恰好相同也能用 version 防止旧曲线系数被复用（对照
+    scripts/bench_detect_speed.py 中的"按频带编号"错误缓存）。
+    本缓存只做备忘录：命中返回的系数与直接调用工厂函数逐位相同。
+    """
+
+    def __init__(self):
+        # kind -> [签名, 结果, 命中数, 未命中数]；每类仅一个槽，严格有界
+        self._slot = {}
+        self.hits = 0
+        self.misses = 0
+
+    def get(self, kind, sig, factory, *fargs, version=None):
+        key = sig if version is None else (version, sig)
+        slot = self._slot.get(kind)
+        if slot is not None and slot[0] == key:
+            slot[2] += 1
+            self.hits += 1
+            return slot[1]
+        obj = factory(*fargs)
+        if slot is None:
+            self._slot[kind] = [key, obj, 0, 1]
+        else:
+            slot[0] = key
+            slot[1] = obj
+            slot[3] += 1
+        self.misses += 1
+        return obj
+
+    def stats(self):
+        total = self.hits + self.misses
+        return {"hits": self.hits, "misses": self.misses, "lookups": total,
+                "hit_rate": (self.hits / total) if total else 1.0,
+                "kind_hits": {k: s[2] for k, s in self._slot.items()},
+                "kind_misses": {k: s[3] for k, s in self._slot.items()},
+                "slots": len(self._slot)}
+
+    def reset_stats(self):
+        self.hits = self.misses = 0
+        for slot in self._slot.values():
+            slot[2] = 0
+            slot[3] = 0
+
+
 @dataclass
 class ParamSpec:
     name: str
@@ -120,7 +171,18 @@ class DynamicEQ:
         self.feedback = []          # 内核 -> 界面 的反馈（钳位/拒绝/事件）
         self.events = []            # 跟踪器事件
         self.pole_clamp_count = 0   # 极点安全钳位触发次数
+        self.coeff_cache = CoeffCache()  # 检测带通/处理峰形系数缓存（按完整签名失效）
         self._reset_state()
+
+    def _cached_bandpass(self, f_hz, q):
+        return self.coeff_cache.get(
+            "bandpass", (float(f_hz), float(q), self.fs),
+            bandpass_coeffs, f_hz, q, self.fs)
+
+    def _cached_peaking(self, g_db, f_hz, q):
+        return self.coeff_cache.get(
+            "peaking", (float(g_db), float(f_hz), float(q), self.fs),
+            peaking_coeffs, g_db, f_hz, q, self.fs)
 
     # ------------------------------------------------------------------ 参数
     def schema(self):
@@ -202,6 +264,14 @@ class DynamicEQ:
         bw = (hi - lo) / (self.N_TRACK_BANDS - 1)
         r = math.exp(-math.pi * max(bw, 1.0) / self.fs)
         self._trk_r = r
+        # 13 个复数谐振器的系数只取决于中心频率与 r（仅 tracker_reset 时变化），
+        # 在此预计算一次并复用，避免每个控制块重复进行 13 组三角/数组构造。
+        self._trk_res_b = np.array([1.0 - r])
+        self._trk_res_a = []
+        for m in range(self.N_TRACK_BANDS):
+            w = 2.0 * math.pi * self._trk_centers[m] / self.fs
+            self._trk_res_a.append(
+                np.array([1.0, -r * complex(math.cos(w), math.sin(w))]))
         self._trk_zi = [np.zeros(1, dtype=complex) for _ in range(self.N_TRACK_BANDS)]
         self._trk_env = np.zeros(self.N_TRACK_BANDS)
         # 包络平滑系数按块率计算（每块 BLOCK 个样本）
@@ -253,12 +323,11 @@ class DynamicEQ:
         """
         p = self.params
         r = self._trk_r
-        b = np.array([1.0 - r])
+        b = self._trk_res_b
         envs = np.empty(self.N_TRACK_BANDS)
         for m in range(self.N_TRACK_BANDS):
-            w = 2.0 * math.pi * self._trk_centers[m] / self.fs
-            a = np.array([1.0, -r * complex(math.cos(w), math.sin(w))])
-            y, self._trk_zi[m] = lfilter(b, a, x_blk, zi=self._trk_zi[m])
+            y, self._trk_zi[m] = lfilter(b, self._trk_res_a[m], x_blk,
+                                          zi=self._trk_zi[m])
             envs[m] = np.abs(y[-1]) if y.size else 0.0
         self._trk_env += self._trk_env_k * (envs - self._trk_env)
 
@@ -408,8 +477,8 @@ class DynamicEQ:
             f_det += kf * (f_det_target - f_det)
             f_proc += kf * (self._proc_target() - f_proc)
 
-            # 检测通路
-            b_d, a_d = bandpass_coeffs(f_det, p["detect_q"], self.fs)
+            # 检测通路（系数按实际签名缓存：f_det/q 不变即复用）
+            b_d, a_d = self._cached_bandpass(f_det, p["detect_q"])
             det, self._zi_det = lfilter(b_d, a_d, blk, zi=self._zi_det)
             tap_det[i0:i1] = det
 
@@ -431,9 +500,10 @@ class DynamicEQ:
             tap_gain[i0:i1] = g_blk
             tap_env[i0:i1] = e_blk
 
-            # 处理通路：只动这一个峰形滤波器的增益
-            b_p, a_p, r_pole, clamped = peaking_coeffs(
-                float(g_blk[-1]), f_proc, p["process_q"], self.fs)
+            # 处理通路：只动这一个峰形滤波器的增益。
+            # g/f/q/fs 任一变化才有新签名；稳态段直接复用上一块系数。
+            b_p, a_p, r_pole, clamped = self._cached_peaking(
+                float(g_blk[-1]), f_proc, p["process_q"])
             if clamped:
                 self.pole_clamp_count += 1
             wet, self._zi_proc = lfilter(b_p, a_p, blk, zi=self._zi_proc)
